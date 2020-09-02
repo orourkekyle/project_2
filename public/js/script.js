@@ -18,17 +18,19 @@ $(document).ready(function () {
 
     switch (queryURL) {
       case "name":
-        return (queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`);
+        queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`;
         break;
 
       case "releaseDate":
-        return (queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`);
+        queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
         break;
 
       case "releaseDate" && "name":
-        return (queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`);
+        queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
         break;
-    }
+        
+        default: queryURL;
+    } 
 
     // logging our URL so we can troubleshoot with it
     console.log("---------------\nURL: " + queryURL + "\n---------------");
@@ -47,6 +49,8 @@ $(document).ready(function () {
       console.log(numShoes);
       // Get specific article info for current index
       var shoe = shoeData.results[i];
+      console.log(shoe)
+
 
       // Increase the articleCount (track article # - starting at 1)
       var shoeCount = i + 1;
@@ -97,9 +101,47 @@ $(document).ready(function () {
       var retailPrice = shoe.retailPrice;
       $shoeListItem.append("<h5>" + retailPrice + "</h5>");
 
-      var buy = $("<button>'Buy'</button>");
+      var buy = shoe.id;
+
+      console.log("Buy is " + buy)
+
+      for(var i = 0; i > shoeData.length; i++){
+      var $btn = $("<button>").text(shoe.id).data({title: shoe.title, gender: shoe.gender, added: Date.now()})
+      }
+
+      $("button").on('click', function(){
+        let btnData = $(this).data()
+
+        console.log(btnData)
+      })
+
+      button.setAttribute("class", "btn");
+      $shoeListItem.append(button);
+
+      $(".btn").on("click", function(event) {
+        // Make sure to preventDefault on a submit event.
+        event.preventDefault();
+    
+        var newShoe = {
+          name: $(shoe.id).val()
+          // devour: $("[name=devour]:checked").val().trim()
+        };
+    
+        // Send the POST request.
+        $.ajax("/api/home", {
+          type: "POST",
+          data: newShoe
+        }).then(
+          function() {
+            console.log("created new shoe");
+            // Reload the page to get the updated list
+            location.reload();
+          }
+        );
+      });
+
       var sell = $("<button>'Sell'</button>")
-      $shoeListItem.append(buy, sell);
+      $shoeListItem.append(sell);
 
       // Append the article
       $shoeList.append($shoeListItem);
