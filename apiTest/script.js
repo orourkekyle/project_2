@@ -152,3 +152,19 @@ function buildQueryURL() {
   
   //  .on("click") function associated with the clear button
   $("#clear-all").on("click", clear);
+
+  
+
+function hideFunction(){
+  var x = document.getElementById("myContainer");
+  if (x.style.display === "none"){
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
+}
+
+window.onload = function(){
+  document.getElementById("myContainer").style.display="none";
+
+}
