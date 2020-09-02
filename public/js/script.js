@@ -7,14 +7,11 @@ function buildQueryURL() {
     var releaseDate = $("#release-year").val().trim();
   
     var brand = $("#brand").val().trim();
-  
-    // var colorway = $("#color").val().trim();
-  
+    
     if (parseInt(releaseDate)) {
       queryParams.releaseDate = releaseDate;
     }
   
-    // var API = {"api-key":  "bcd3169b-4e47-4e30-af8c-602d1c987678"};
     var queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
   
     switch (queryURL) {
@@ -59,18 +56,9 @@ function buildQueryURL() {
       // Add the newly created element to the DOM
       $("#shoeList").append($shoeList);
   
-      // If the article has a headline, log and append to $articleList
-    //   var headline = shoe.title;
+      // Creating list tag in variable
       var $shoeListItem = $("<li class='list-group-item shoeHeadline'>");
-  
-      // If the article has a brandline, log and append to $articleList
-       
-    //   var title = shoe.title;
-  
-    //   if (title) {
-    //   //   console.log(title);
-    //     $shoeListItem.append("<h5>" + title + "</h5>");
-    //   }
+
 
     if(shoe.shoe) {
         $shoeListItem.append("<h5>" + shoe.shoe + "</h5>")
@@ -95,11 +83,6 @@ function buildQueryURL() {
         $shoeListItem.append("<h5>" + gender + "</h5>");
       }
   
-    //   var color = shoe.colorway;
-    //   if(color) {
-    //       $shoeListItem.append("<h5>" + color + "</h5>")
-    //   }
-  
       // Log release Year, and append to document if exists
       var year = shoe.year;
       //   console.log(shoe.year);
@@ -111,11 +94,10 @@ function buildQueryURL() {
       // Append and log retailPrice
       var retailPrice = shoe.retailPrice;
       $shoeListItem.append("<h5>" + retailPrice + "</h5>");
-      //   console.log(shoe.retailPrice);
   
-      var want = $("<button>'Want'</button>");
-      var kick = $("<button>'Kick It'</button>")
-      $shoeListItem.append(want, kick)
+      var buy = $("<button>'Buy'</button>");
+      var sell = $("<button>'Sell'</button>")
+      $shoeListItem.append(buy, sell);
   
       // Append the article
       $shoeList.append($shoeListItem);
@@ -152,3 +134,17 @@ function buildQueryURL() {
   
   //  .on("click") function associated with the clear button
   $("#clear-all").on("click", clear);
+
+  function hideFunction(){
+    var x = document.getElementById("myContainer");
+    if (x.style.display === "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+  }
+  
+  window.onload = function(){
+    document.getElementById("myContainer").style.display="none";
+  
+  }
