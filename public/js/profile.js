@@ -11,7 +11,7 @@ $(document).ready(() => {
   });
 
   // tom scratch paper idea
-  app.post('/api', (request, response) =>{
+  app.post('/api', (req, res) =>{
     console.log("request received");
     database.insert(data);
     console.log(database);

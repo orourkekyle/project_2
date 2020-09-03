@@ -28,9 +28,9 @@ $(document).ready(function () {
       case "releaseDate" && "name":
         queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
         break;
-        
-        default: queryURL;
-    } 
+
+      default: queryURL;
+    }
 
     // logging our URL so we can troubleshoot with it
     console.log("---------------\nURL: " + queryURL + "\n---------------");
@@ -46,7 +46,7 @@ $(document).ready(function () {
     console.log("------------------------------------");
 
     for (var i = 0; i < numShoes; i++) {
-      console.log(numShoes);
+      // console.log(numShoes);
       // Get specific article info for current index
       var shoe = shoeData.results[i];
       console.log(shoe)
@@ -105,40 +105,65 @@ $(document).ready(function () {
 
       console.log("Buy is " + buy)
 
-      for(var i = 0; i > shoeData.length; i++){
-      var $btn = $("<button>").text(shoe.id).data({title: shoe.title, gender: shoe.gender, added: Date.now()})
-      }
-
-      $("button").on('click', function(){
-        let btnData = $(this).data()
-
-        console.log(btnData)
-      })
-
-      button.setAttribute("class", "btn");
-      $shoeListItem.append(button);
-
-      $(".btn").on("click", function(event) {
-        // Make sure to preventDefault on a submit event.
+      // for(var i = 0; i > shoeData.length; i++){
+        // var $btn = $(this).attr("id")
+      var $btn = $("<button>").attr("id", shoe.id).text("Buy");
+      // }
+      $($btn).on("click", function (event) {
         event.preventDefault();
-    
-        var newShoe = {
-          name: $(shoe.id).val()
-          // devour: $("[name=devour]:checked").val().trim()
+
+        var newBuy = {
+          gender: shoe.gender,
+          media: shoe.media.imageUrl,
+          colorWay: shoe.colorway,
+          retailPrice: shoe.retailPrice,
+          shoe: shoe.shoe,
+          year: shoe.year,
+          purchased: true
+
         };
-    
-        // Send the POST request.
-        $.ajax("/api/home", {
+        console.log(newBuy)
+        $.ajax("/api/posts.js", {
           type: "POST",
-          data: newShoe
+          data: newBuy
         }).then(
-          function() {
-            console.log("created new shoe");
-            // Reload the page to get the updated list
-            location.reload();
+          function () {
+            console.log("sending shoe");
           }
-        );
-      });
+        )
+      })
+      $shoeListItem.append($btn)
+
+      // $("button").on('click', function(){
+      //   let btnData = $(this).data("id")
+
+      //   console.log(btnData)
+      // })
+
+      // button.setAttribute("class", "btn");
+      // $shoeListItem.append($btn);
+
+      // $(".btn").on("click", function(event) {
+      //   // Make sure to preventDefault on a submit event.
+      //   event.preventDefault();
+
+      //   var newShoe = {
+      //     name: $(shoe.id).val()
+      //     // devour: $("[name=devour]:checked").val().trim()
+      // };
+
+      // // Send the POST request.
+      // $.ajax("/api/home", {
+      //   type: "POST",
+      //   data: newShoe
+      // }).then(
+      //   function() {
+      //     console.log("created new shoe");
+      //     // Reload the page to get the updated list
+      //     location.reload();
+      //   }
+      // );
+      // });
 
       var sell = $("<button>'Sell'</button>")
       $shoeListItem.append(sell);
