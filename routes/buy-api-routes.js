@@ -1,35 +1,22 @@
 // Requiring our models
 var db = require("../models");
-
 // Routes
 // =============================================================
 module.exports = function(app) {
 // WORK IN PROGRESS
   // GET route for getting all of the posts
   app.get("/api/bought", function(req, res) {
-    var query = {};
-    if (req.user.id) {
-      query.UserId = req.user.id;
-    }
-    // 1. Add a join here to include all of the Authors to these posts
-    db.Post.findAll({
-      where: purchased, inclued: db/User
-    }).then(function(dbPost) {
-      res.json(dbPost);
-    });
-  });
-// WORK IN PROGRESS
-  // Get route for retrieving a single post
-  // WHATS THE DIFFERENCE BETWEEN THIS AND OTHER GET ^
-  app.get("/api/bought/:id", function(req, res) {
-    // 2. Add a join here to include the Author who wrote the Post
-    db.Post.findAll({
+    // Here we add an "include" property to our options in our findOne query
+    // We set the value to an array of the models we want to include in a left outer join
+    // In this case, just db.Post
+    console.log("hitting get on page load");
+    db.User.findAll({
       where: {
-        id: req.params.id
-      }
-    }).then(function(dbPost) {
-      console.log(dbPost);
-      res.json(dbPost);
+        id: req.User.id
+      },
+      include: [db.Buy]
+    }).then(function(dbUser) {
+      res.json(dbUser);
     });
   });
 // DID IT! :)
@@ -50,8 +37,8 @@ module.exports = function(app) {
       purchased: req.body.purchased,
       UserId: req.user.id
     }
-    db.Buy.create(buyObj).then(function(dbPost) {
-      res.json(dbPost);
+    db.Buy.create(buyObj).then(function(dbUser) {
+      res.json(dbUser);
     }).catch( err => {
       console.log(err);
       res.status(500).json(err);
@@ -59,28 +46,28 @@ module.exports = function(app) {
   });
 // WORK IN PROGRESS
   // DELETE route for deleting posts
-  app.delete("/api/bought/:id", function(req, res) {
+  app.delete("/api/bought", function(req, res) {
     console.log("delete method hit")
-    db.Post.destroy({
+    db.Buy.destroy({
       where: {
-        id: req.params.id
+        id: req.User.id
       }
-    }).then(function(dbPost) {
-      res.json(dbPost);
+    }).then(function(dbUser) {
+      res.json(dbUser);
     });
   });
 // WORK IN PROGRESS -
 // WHAT IS THIS USED FOR
   // PUT route for updating posts
-  app.put("/api/posts", function(req, res) {
-    db.Post.update(
-      req.body,
-      {
-        where: {
-          id: req.body.id
-        }
-      }).then(function(dbPost) {
-      res.json(dbPost);
-    });
-  });
+  // app.put("/api/posts", function(req, res) {
+  //   db.Post.update(
+  //     req.body,
+  //     {
+  //       where: {
+  //         id: req.body.id
+  //       }
+  //     }).then(function(dbPost) {
+  //     res.json(dbPost);
+  //   });
+  // });
 };
