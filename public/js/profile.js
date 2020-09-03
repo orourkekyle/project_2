@@ -63,7 +63,7 @@ $(document).ready(() => {
   }
  
 
-  function getBought() {
+  function getBought(shoe) {
     $.get("/api/bought", function (shoe) {
       console.log(shoe);
       var rowsToAdd = [];

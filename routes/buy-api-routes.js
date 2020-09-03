@@ -7,6 +7,7 @@ module.exports = function(app) {
 // WORK IN PROGRESS
   // GET route for getting all of the posts
   app.get("/api/bought", function(req, res) {
+    console.log("hitting get request on page")
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Post
