@@ -1,37 +1,21 @@
 $(document).ready(function () {
 
+  var shoeArr = [];
+
   function buildQueryURL() {
     var name = $("#name").val().trim();
     var gender = $("#gender").val().trim();
-
     var queryParams = $("#shoe-count").val().trim();
-
     var releaseDate = $("#release-year").val().trim();
-
     var brand = $("#brand").val().trim();
 
-    if (parseInt(releaseDate)) {
-      queryParams.releaseDate = releaseDate;
-    }
+    // if (parseInt(releaseDate)) {
+    //   queryParams.releaseDate = releaseDate;
+    // }
+    
+    var queryURL = `https://cors-anywhere.herokuapp.com/https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
 
-    var queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
-
-    switch (queryURL) {
-      case "name":
-        queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`;
-        break;
-
-      case "releaseDate":
-        queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
-        break;
-
-      case "releaseDate" && "name":
-        queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
-        break;
-
-      default: queryURL;
-    }
-
+   
     // logging our URL so we can troubleshoot with it
     console.log("---------------\nURL: " + queryURL + "\n---------------");
     console.log(queryURL);
@@ -50,6 +34,7 @@ $(document).ready(function () {
       // Get specific article info for current index
       var shoe = shoeData.results[i];
       console.log(shoe)
+      shoeArr.push(shoe);
 
 
       // Increase the articleCount (track article # - starting at 1)
@@ -58,112 +43,49 @@ $(document).ready(function () {
       // Create the  list group to contain the articles and add the article content for each
       var $shoeList = $("<ul>");
       $shoeList.addClass("list-group");
-
       // Add the newly created element to the DOM
       $("#shoeList").append($shoeList);
-
       // Creating list tag in variable
       var $shoeListItem = $("<li class='list-group-item shoeHeadline'>");
-
-
       if (shoe.shoe) {
         $shoeListItem.append("<h5>" + shoe.shoe + "</h5>")
       }
 
-
       var colorway = shoe.colorway;
-
       if (colorway) {
         $shoeListItem.append("<h5>" + colorway + "</h5>")
       }
-
       var image = $("<img>");
       image.addClass("card-img-top img-thumbnail shadow-sm border-bottom-secondary");
       image.attr("src", shoe.media.imageUrl);
       $shoeListItem.append(image)
-
       // Log gender, and append to document if exists
       var gender = shoe.gender;
       // console.log(shoe.gender);
       if (gender) {
         $shoeListItem.append("<h5>" + gender + "</h5>");
       }
-
       // Log release Year, and append to document if exists
       var year = shoe.year;
       //   console.log(shoe.year);
       if (year) {
         $shoeListItem.append("<h5> " + year + "</h5>");
       }
-
-
       // Append and log retailPrice
       var retailPrice = shoe.retailPrice;
       $shoeListItem.append("<h5>" + retailPrice + "</h5>");
 
       var buy = shoe.id;
-
       console.log("Buy is " + buy)
 
       // for(var i = 0; i > shoeData.length; i++){
-        // var $btn = $(this).attr("id")
-      var $btn = $("<button>").attr("id", shoe.id).text("Buy");
-      // }
-      $($btn).on("click", function (event) {
-        event.preventDefault();
+      // var $btn = $(this).attr("id")
+      var $btn = $("<button>").attr("id", buy).text("Buy");
+      $btn.attr("class", "buyBtn");
+      console.log("her is $this: ", $(this));
 
-        var newBuy = {
-          gender: shoe.gender,
-          media: shoe.media.imageUrl,
-          colorWay: shoe.colorway,
-          retailPrice: shoe.retailPrice,
-          shoe: shoe.shoe,
-          year: shoe.year,
-          purchased: true
-
-        };
-        console.log(newBuy)
-        $.ajax("/api/posts.js", {
-          type: "POST",
-          data: newBuy
-        }).then(
-          function () {
-            console.log("sending shoe");
-          }
-        )
-      })
       $shoeListItem.append($btn)
 
-      // $("button").on('click', function(){
-      //   let btnData = $(this).data("id")
-
-      //   console.log(btnData)
-      // })
-
-      // button.setAttribute("class", "btn");
-      // $shoeListItem.append($btn);
-
-      // $(".btn").on("click", function(event) {
-      //   // Make sure to preventDefault on a submit event.
-      //   event.preventDefault();
-
-      //   var newShoe = {
-      //     name: $(shoe.id).val()
-      //     // devour: $("[name=devour]:checked").val().trim()
-      // };
-
-      // // Send the POST request.
-      // $.ajax("/api/home", {
-      //   type: "POST",
-      //   data: newShoe
-      // }).then(
-      //   function() {
-      //     console.log("created new shoe");
-      //     // Reload the page to get the updated list
-      //     location.reload();
-      //   }
-      // );
-      // });
 
       var sell = $("<button>'Sell'</button>")
       $shoeListItem.append(sell);
@@ -172,6 +94,106 @@ $(document).ready(function () {
       $shoeList.append($shoeListItem);
     }
   }
+  function handlePost(event) {
+    event.preventDefault();
+    var index = -1;
+
+    for (var i = 0; i < shoeArr.length; i++) {
+      console.log("$this attr id: ", $(this).attr("id"));
+      if (shoeArr[i].id === $(this).attr("id")) {
+        console.log("match success");
+        index = i;
+        break;
+      }
+    }
+    var newBuy = {
+      gender: shoeArr[index].gender,
+      media: shoeArr[index].media.imageUrl,
+      colorWay: shoeArr[index].colorway,
+      retailPrice: shoeArr[index].retailPrice,
+      shoe: shoeArr[index].shoe,
+      year: shoeArr[index].year,
+      purchased: true
+    };
+    var updating = false;
+    if (updating) {
+      newBuy.id = shoeArr[index].id
+      console.log(newBuy);
+    } else {
+      submitBuyPost(newBuy);
+    }
+    function submitBuyPost(Buy) {
+      $.post("/api/buy", Buy, function () {
+        console.log("Successful Posted in mysql")
+      })
+    }
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/buy/",
+    //   data: newBuy
+    // }).then(
+    //   function () {
+    //     console.log("sending shoe");
+    //   }
+    // )
+  }
+  $(document).on("click", ".buyBtn", handlePost);
+  // $(document).on("click", ".sellBtn", handlePost);
+
+
+
+
+
+  //function (event) {
+  //   event.preventDefault();
+  //   var index = -1;
+
+  //   for (var i=0; i < shoeArr.length; i++){
+  //     console.log("$this attr id: ", $(this).attr("id"));
+  //     if (shoeArr[i].id === $(this).attr("id")) {
+  //       console.log("match success");
+  //       index = i;
+  //       break;
+  //     }
+  //   }
+
+  //   var newBuy = {
+  //     gender: shoeArr[index].gender,
+  //     media: shoeArr[index].media.imageUrl,
+  //     colorWay: shoeArr[index].colorway,
+  //     retailPrice: shoeArr[index].retailPrice,
+  //     shoe: shoeArr[index].shoe,
+  //     year: shoeArr[index].year,
+  //     purchased: true
+
+  //   };
+  //   var updating = false;
+
+  //   if (updating) {
+  //     newBuy.id = shoeArr[index].id
+  //     console.log(newBuy);
+  //   }else{
+  //     submitBuyPost(newBuy);
+  //   }
+
+  //   function submitBuyPost(Buy){
+  //     $.post("/api/buy", Buy, function(){
+  //       console.log("Successful Posted in mysql")
+
+  //   })
+  //   }
+
+  //   // $.ajax({
+  //   //   type: "POST",
+  //   //   url: "/api/buy/",
+  //   //   data: newBuy
+  //   // }).then(
+  //   //   function () {
+  //   //     console.log("sending shoe");
+  //   //   }
+  //   // )
+  // })
 
   // Function to empty out the articles
   function clear() {
