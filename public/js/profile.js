@@ -1,5 +1,5 @@
-const mysql = require('mysql')
-const express = require('express')
+// const mysql = require('mysql')
+// const express = require('express')
 const database = new Datastore('sell');
 database.loadDatabase();
 
