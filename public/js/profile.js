@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 const express = require('express')
 
-const database =new Datastore('sell');
+const database = new Datastore('sell');
 database.loadDatabase();
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
@@ -10,16 +10,18 @@ $(document).ready(() => {
     $(".member-name").text(data.email);
   });
 
-  // tom scratch paper idea
-  app.post('/api', (req, res) =>{
-    console.log("request received");
-    database.insert(data);
-    console.log(database);
-    response.json({
-      status:'success',
-      
-      title: shoe.title,
-      release: shoe.releaseYear,
-    })
-  })
-});
+  $.get("/api/bought/:id", Buy, function(shoeData) {
+    console.log("get user api/bought hit")
+  });
+
+  function displayBought(shoeData){
+
+    for (var i = 0; i < shoeData.length; i++){
+     var shoeName = $("<h1>").append(shoeData.shoe)
+    
+    $("#boughtCont").append(shoeName)
+    }
+  }
+
+document.onload = () => displayBought();
+})
