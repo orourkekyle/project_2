@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
   var shoeArr = [];
 
   function buildQueryURL() {
@@ -8,6 +9,7 @@ $(document).ready(function () {
     var queryParams = $("#shoe-count").val().trim();
     var releaseDate = $("#release-year").val().trim();
     var brand = $("#brand").val().trim();
+
 
 
     var queryURL = `https://cors-anywhere.herokuapp.com/https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
@@ -25,6 +27,24 @@ $(document).ready(function () {
     }
     // logging our URL so we can troubleshoot with it
     console.log("This is the Request URL: ", queryURL);
+
+    var queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
+
+        if(name !== ""){
+            queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`;
+        }
+        else if(releaseDate !== ""){
+            queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
+        }
+        else if(name !== "" && releaseDate !== ""){
+            queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
+        }
+        else {
+            console.log("INSIDE ELSE: ", queryURL);
+        }
+
+    console.log(queryURL);
+    // WHY IF THIS ISN'T HERE shoeData RETURNS HTML PAGE
     return queryURL;
   }
 
@@ -73,6 +93,7 @@ $(document).ready(function () {
         $shoeListItem.append("<h5>" + shoe.retailPrice + "</h5>");
       }
 
+      
       // Store Id in buy variable, plus console log ID
       var buy = shoe.id;
       console.log("Buy is " + buy)
