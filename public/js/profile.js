@@ -92,10 +92,10 @@ $(document).ready(() => {
   }
   function handleDeleteButtonPress() {
     var listItemData = $(this).parent("li").parent("ul");
-    // var id = listItemData.id;
+    var id = listItemData.id;
     $.ajax({
       method: "DELETE",
-      url: "/api/sell", listItemData
+      url: "/api/sell"
     }).then(getBought);
   }
 });
