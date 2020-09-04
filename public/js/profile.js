@@ -46,7 +46,7 @@ $(document).ready(() => {
     // var buy = shoe.id;
     console.log("these are our bought shoes: ", shoe) // shoe was buy
     // dynamically create button, and attatch response ID
-    var $btn = $("<button>").attr("id", shoe).text("Sell"); // shoe was buy
+    var $btn = $("<button>").attr("id", shoe.id).text("Sell"); // shoe was buy
     $btn.attr("class", "sellBtn");
     // console.log("her is $this: ", $(this));
     // append to DOM
@@ -90,11 +90,12 @@ $(document).ready(() => {
     listDiv.append(alertDiv);
   }
   function handleDeleteButtonPress() {
-    var listItemData = $(this).parent("li").parent("ul");
-    var id = listItemData.id;
+    console.log("this is $this: ", $(this));
+    var id = $(this).attr("id");
+    console.log("this is id: ", id);
     $.ajax({
       method: "DELETE",
-      url: "/api/sell"
+      url: "/api/sell" + "/" + id
     }).then(getBought);
   }
 });
