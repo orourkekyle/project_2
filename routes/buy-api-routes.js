@@ -21,11 +21,7 @@ module.exports = function(app) {
       res.json(dbUsersBuyData);
     });
   });
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 117ae04838f8fec47088b4aae20970a0b71dac8f
+  
 // DID IT! :)
   // POST route for saving a new post
   app.post("/api/buy", function(req, res) {
