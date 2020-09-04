@@ -4,7 +4,7 @@ $(document).ready(function () {
   var shoeArr = [];
 
   function buildQueryURL() {
-    var name = $("#name").val().trim();
+    // var name = $("#name").val().trim();
     var gender = $("#gender").val().trim();
     var queryParams = $("#shoe-count").val().trim();
     var releaseDate = $("#release-year").val().trim();
