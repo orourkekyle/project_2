@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 form.signup,
 form.login {
   margin-top: 50px;
@@ -7,12 +9,18 @@ form.login {
   max-width: 100px;
 }
 
+>>>>>>> 3b02de3ef3ab49b204fb80d1216a6e7ec789e52f
 #logout{
   text-align: right;
 }
 
 .title {
   font-weight: 800;
+  padding-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
 }
 
 .navbar-brand {
@@ -119,9 +127,6 @@ body {
   align-items: center;
 }
 
-
-
-
-
-
-
+h2 {
+  color: white;
+}
