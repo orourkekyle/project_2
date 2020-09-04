@@ -11,21 +11,27 @@ module.exports = function(app) {
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Post
     console.log("hitting get on page load");
-    db.User.findAll({
+    console.log("this is req.user", req.user);
+    db.Buy.findAll({
       where: {
-        id: req.User.id
+        UserId: req.user.id
       },
-      include: [db.Buy]
-    }).then(function(dbUser) {
-      res.json(dbUser);
+      // include: [db.Buy]
+    }).then(function(dbUsersBuyData) {
+      res.json(dbUsersBuyData);
     });
   });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 117ae04838f8fec47088b4aae20970a0b71dac8f
 // DID IT! :)
   // POST route for saving a new post
   app.post("/api/buy", function(req, res) {
-    console.log("post /api/buy hit")
+    console.log("post /api/buy hit", req.user);
     console.log("this is req.body: ", req.body);
+    console.log(req.user);
     if (!req.user) {
       return res.status(402).json({msg: "user not signed in!"});
     }
@@ -39,8 +45,8 @@ module.exports = function(app) {
       purchased: req.body.purchased,
       UserId: req.user.id
     }
-    db.Buy.create(buyObj).then(function(dbUser) {
-      res.json(dbUser);
+    db.Buy.create(buyObj).then(function(dbUserBoughtData) {
+      res.json(dbUserBoughtData);
     }).catch( err => {
       console.log(err);
       res.status(500).json(err);
@@ -48,11 +54,11 @@ module.exports = function(app) {
   });
 // WORK IN PROGRESS
   // DELETE route for deleting posts
-  app.delete("/api/bought", function(req, res) {
+  app.delete("/api/sell", function(req, res) {
     console.log("delete method hit")
     db.Buy.destroy({
       where: {
-        id: req.User.id
+        id: req.buy.id
       }
     }).then(function(dbUser) {
       res.json(dbUser);
