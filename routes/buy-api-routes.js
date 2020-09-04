@@ -1,17 +1,23 @@
 
 // Requiring our models
 var db = require("../models");
-
 // Routes
 // =============================================================
 module.exports = function(app) {
 // WORK IN PROGRESS
   // GET route for getting all of the posts
   app.get("/api/bought", function(req, res) {
+<<<<<<< HEAD
     console.log("hitting get request on page")
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Post ----THIS SECTION
+=======
+    // Here we add an "include" property to our options in our findOne query
+    // We set the value to an array of the models we want to include in a left outer join
+    // In this case, just db.Post
+    console.log("hitting get on page load");
+>>>>>>> 9ea2e4a17d0c790c39868739407906cbb8b31d69
     db.User.findAll({
       where: {
         id: req.User.id
@@ -73,4 +79,8 @@ module.exports = function(app) {
   //     res.json(dbPost);
   //   });
   // });
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 9ea2e4a17d0c790c39868739407906cbb8b31d69
