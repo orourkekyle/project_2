@@ -15,13 +15,7 @@ $(document).ready(function () {
     
     if (releaseDate !== "") {
       queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
-<<<<<<< HEAD
-    }
-    
-    else {
-=======
     } else {
->>>>>>> 2afce236b0510d9f86925bd7a20a62ec1b4ac600
       console.log("INSIDE ELSE: ", queryURL);
       return queryURL;
     }
