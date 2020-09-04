@@ -4,7 +4,7 @@ $(document).ready(function () {
   var shoeArr = [];
 
   function buildQueryURL() {
-    var name = $("#name").val().trim();
+    // var name = $("#name").val().trim();
     var gender = $("#gender").val().trim();
     var queryParams = $("#shoe-count").val().trim();
     var releaseDate = $("#release-year").val().trim();
@@ -12,38 +12,22 @@ $(document).ready(function () {
 
 
 
-    var queryURL = `https://cors-anywhere.herokuapp.com/https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
-    if (name !== "") {
-      queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`;
-    }
-    else if (releaseDate !== "") {
-      queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
-    }
-    else if (name !== "" && releaseDate !== "") {
-      queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
-    }
-    else {
-      console.log("INSIDE ELSE: ", queryURL);
-    }
+    var queryURL = `https://cors-anywhere.herokuapp.com/https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
+    // if (name !== "") {
+    //   queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`;
+    // }
+    // else if (releaseDate !== "") {
+    //   queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
+    // }
+    // else if (name !== "" && releaseDate !== "") {
+    //   queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
+    // }
+    // else {
+    //   console.log("INSIDE ELSE: ", queryURL);
+    // }
     // logging our URL so we can troubleshoot with it
     console.log("This is the Request URL: ", queryURL);
 
-    var queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}`;
-
-        if(name !== ""){
-            queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&name=${name}`;
-        }
-        else if(releaseDate !== ""){
-            queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}`;
-        }
-        else if(name !== "" && releaseDate !== ""){
-            queryURL = `https://api.thesneakerdatabase.com/v1/sneakers?limit=${queryParams}&brand=${brand}&gender=${gender}&releaseYear=${releaseDate}&name=${name}`;
-        }
-        else {
-            console.log("INSIDE ELSE: ", queryURL);
-        }
-
-    console.log(queryURL);
     // WHY IF THIS ISN'T HERE shoeData RETURNS HTML PAGE
     return queryURL;
   }
@@ -174,10 +158,10 @@ $(document).ready(function () {
  
   // .on("click") function associated with the Search Button
   $("#run-search").on("click", function (event) {
-      // Empty the region associated with the shoes
-      clear();
   //  prevent default refresh
     event.preventDefault();
+    // Empty the region associated with the shoes
+    clear();
     // Build the query URL for the ajax request to the API
     var queryURL = buildQueryURL();
     // Make the AJAX request to the API - GETs the JSON data at the queryURL.

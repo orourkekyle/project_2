@@ -47,7 +47,7 @@ $(document).ready(() => {
     // var buy = shoe.id;
     console.log("these are our bought shoes: ", shoe) // shoe was buy
     // dynamically create button, and attatch response ID
-    var $btn = $("<button>").attr("id", buy).text("Sell"); // shoe was buy
+    var $btn = $("<button>").attr("id", ).text("Sell"); // shoe was buy
     $btn.attr("class", "sellBtn");
     // console.log("her is $this: ", $(this));
     // append to DOM
