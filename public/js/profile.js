@@ -4,6 +4,7 @@ $(document).ready(() => {
   var container = $("#boughtCont");
   var listDiv = $("#shoeList")
   $(document).on("click", ".sellBtn", handleDeleteButtonPress);
+  
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $.get("/api/user_data").then(data => {
@@ -63,33 +64,18 @@ $(document).ready(() => {
       // -------------------
       var rowsToAdd = [];
       for (var i = 0; i < shoe.length; i++) {
-        rowsToAdd.push(displayBought(shoe[i])); // was (shoe[i])
+        rowsToAdd.push(displayBought(shoe[i]));
       }
-      // renderBoughtList(rowsToAdd);
-      // nameInput.val("");
     });
   }
 
-  // function renderBoughtList(row) {
-  //   // container.children().not(":last").remove();
-  //   // listDiv.children(".alert").remove();
-  //   if (row.length) {
-  //     // THIS FUCK DOESN'T WORK
-  //     console.log(row);
-  //     // ---------------------
-  //     container.append(row);
-  //   }
-  //   else {
-  //     renderEmpty();
-  //   }
+  // function renderEmpty() {
+  //   var alertDiv = $("<div>");
+  //   alertDiv.addClass("alert alert-danger");
+  //   alertDiv.text("Buy something mate.");
+  //   listDiv.append(alertDiv);
   // }
 
-  function renderEmpty() {
-    var alertDiv = $("<div>");
-    alertDiv.addClass("alert alert-danger");
-    alertDiv.text("Buy something mate.");
-    listDiv.append(alertDiv);
-  }
   function handleDeleteButtonPress() {
     console.log("this is $this: ", $(this));
     var id = $(this).attr("id");

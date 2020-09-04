@@ -13,6 +13,11 @@ form.login {
 
 .title {
   font-weight: 800;
+  padding-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
 }
 
 .navbar-brand {
@@ -23,7 +28,7 @@ form.login {
   filter: drop-shadow(30px 10px 4px #4444dd);
   padding-left: 225px;
   padding-right: 225px;
-  padding-top: 30px;
+  padding-top: 10px;
   padding-bottom: 30px;
 }
 
@@ -119,9 +124,6 @@ body {
   align-items: center;
 }
 
-
-
-
-
-
-
+h2 {
+  color: white;
+}

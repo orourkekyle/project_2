@@ -39,4 +39,5 @@ Our group faced many issues like the API not functioning as expecting, first mai
 
 
 <h3 align="right"><a href="https://github.com/HMancuso16/Project2">Github Link</a></h3>
-<h3 align="right"><a href="">Deployed Link</a></h3>
+<h3 align="right"><a href="https://afternoon-falls-88312.herokuapp.com/">Deployed Link</a></h3>
+<center><img src="./images/screenshot.jpg" alt="screenshot" width="1000" height="500"></center>
