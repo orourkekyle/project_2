@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+=======
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+.my-img {
+  max-width: 100px;
+}
+
+>>>>>>> 3b02de3ef3ab49b204fb80d1216a6e7ec789e52f
 #logout{
   text-align: right;
 }
