@@ -174,10 +174,10 @@ $(document).ready(function () {
  
   // .on("click") function associated with the Search Button
   $("#run-search").on("click", function (event) {
+      // Empty the region associated with the shoes
+      clear();
   //  prevent default refresh
     event.preventDefault();
-    // Empty the region associated with the shoes
-    clear();
     // Build the query URL for the ajax request to the API
     var queryURL = buildQueryURL();
     // Make the AJAX request to the API - GETs the JSON data at the queryURL.
