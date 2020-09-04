@@ -1,10 +1,10 @@
-// const mysql = require('mysql')
-// const express = require('express')
-const database = new Datastore('sell');
-database.loadDatabase();
+// // const mysql = require('mysql')
+// // const express = require('express')
+// const database = new Datastore('sell');
+// database.loadDatabase();
 
 $(document).ready(() => {
-  document.onload = () => getBought();
+ $(document).onload = () => getBought();
 
   // Declaring variables refrencing html
   var container = $("#boughtCont");
@@ -15,9 +15,13 @@ $(document).ready(() => {
   // and updates the HTML on the page
   $.get("/api/user_data").then(data => {
     $(".member-name").text(data.email);
+    console.log(data)
   });
+
+ 
   /* EVERYTHING ABOVE HERE CAME WITH profile.js */
   function displayBought(shoe) {
+    console.log(shoe)
     var $shoeList = $("<ul>");
     $shoeList.addClass("list-group");
     // Add the newly created element to the DOM
@@ -58,12 +62,13 @@ $(document).ready(() => {
     $btn.attr("class", "sellBtn");
     // console.log("her is $this: ", $(this));
     // append to DOM
+    console.log($btn)
     $shoeListItem.append($btn)
     
   }
  
 
-  function getBought(shoe) {
+  function getBought() {
     $.get("/api/bought", function (shoe) {
       console.log(shoe);
       var rowsToAdd = [];
