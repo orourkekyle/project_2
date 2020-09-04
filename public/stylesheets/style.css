@@ -3,6 +3,14 @@ form.login {
   margin-top: 50px;
 }
 
+.hello {
+  text-align: center;
+}
+
+.shoecontainerlabel {
+  text-align: center;
+}
+
 .my-img {
   max-width: 100px;
 }
