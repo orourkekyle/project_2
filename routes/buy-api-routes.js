@@ -50,11 +50,11 @@ module.exports = function(app) {
   });
 // WORK IN PROGRESS
   // DELETE route for deleting posts
-  app.delete("/api/bought", function(req, res) {
+  app.delete("/api/sell", function(req, res) {
     console.log("delete method hit")
     db.Buy.destroy({
       where: {
-        id: req.User.id
+        id: req.buy.id
       }
     }).then(function(dbUser) {
       res.json(dbUser);
