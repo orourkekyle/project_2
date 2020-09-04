@@ -65,6 +65,7 @@ $(document).ready(() => {
       for (var i = 0; i < shoe.length; i++) {
         rowsToAdd.push(displayBought(shoe[i])); // was (shoe[i])
       }
+      location.replace("/profile");
       // renderBoughtList(rowsToAdd);
       // nameInput.val("");
     });
