@@ -77,7 +77,7 @@ $(document).ready(function () {
       }
       // Display image url 3rd
       var image = $("<img>");
-      image.addClass("card-img-top img-thumbnail shadow-sm border-bottom-secondary");
+      image.addClass("card-img-top img-thumbnail shadow-sm border-bottom-secondary my-img");
       image.attr("src", shoe.media.imageUrl);
       $shoeListItem.append(image)
       //Display gender 4th
@@ -146,8 +146,8 @@ $(document).ready(function () {
     } else {
       submitBuyPost(newBuy);
     }
-    function submitBuyPost(Buy) {
-      $.post("/api/buy", Buy, function () {
+    function submitBuyPost(newBuyObj) {
+      $.post("/api/buy", newBuyObj, function () {
         console.log("Successful Posted in mysql")
       })
     }

@@ -1,9 +1,5 @@
-const mysql = require('mysql')
-const express = require('express')
-const database = new Datastore('sell');
-database.loadDatabase();
 $(document).ready(() => {
-  document.onload = () => getBought();
+  getBought();
   // Declaring variables refrencing html
   var container = $("#boughtCont");
   var listDiv = $("#shoeList")
@@ -57,7 +53,9 @@ $(document).ready(() => {
   }
   function getBought() {
     $.get("/api/bought", function (shoe) {
+      // GIVES ACTUAL OBJECT
       console.log(shoe);
+      // -------------------
       var rowsToAdd = [];
       for (var i = 0; i < shoe.length; i++) {
         rowsToAdd.push(displayBought(shoe[i]));
@@ -66,17 +64,21 @@ $(document).ready(() => {
       // nameInput.val("");
     });
   }
-  function renderBoughtList(rows) {
+
+  function renderBoughtList(row) {
     // container.children().not(":last").remove();
     // listDiv.children(".alert").remove();
-    if (rows.length) {
-      console.log(rows);
-      container.prepend(rows);
+    if (row.length) {
+      // THIS FUCK DOESN'T WORK
+      console.log(row);
+      // ---------------------
+      container.prepend(row);
     }
     else {
       renderEmpty();
     }
   }
+
   function renderEmpty() {
     var alertDiv = $("<div>");
     alertDiv.addClass("alert alert-danger");
